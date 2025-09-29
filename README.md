@@ -124,6 +124,6 @@ All combined to create a **seamless and enriched travel adventure**.
 
 ---
 
-## Contact
+## 📧 Contact
 
 - Project Link: Smart_Travel_Companion
