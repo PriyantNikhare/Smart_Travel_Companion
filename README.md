@@ -99,6 +99,7 @@ All combined to create a **seamless and enriched travel adventure**.
    cd backend
    ./mvnw spring-boot:run
 3. **Frontend Setup**
+   ```bash
    cd frontend
    npm install
    ng serve
