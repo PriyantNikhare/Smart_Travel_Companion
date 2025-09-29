@@ -103,7 +103,7 @@ All combined to create a **seamless and enriched travel adventure**.
    cd frontend
    npm install
    ng serve
-   **Access the app at: http://localhost:4200**
+   Access the app at: http://localhost:4200
    
 ---
 
