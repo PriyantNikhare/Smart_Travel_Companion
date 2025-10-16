@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="content-wrapper">
+    <div class="form-column">
+      <h2 class="form-title">Book Your <span class="highlight">Train</span></h2>
+      <form class="form" (ngSubmit)="onSearchTrains()">
+        <div class="form-row">
+          <label><span>From Station</span>
+            <input type="text" placeholder="e.g., New Delhi" [(ngModel)]="searchRequest.fromStation" name="fromStation" required>
+          </label>
+          <label><span>To Station</span>
+            <input type="text" placeholder="e.g., Mumbai" [(ngModel)]="searchRequest.toStation" name="toStation" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>Journey Date</span>
+            <input type="date" [(ngModel)]="searchRequest.journeyDate" name="journeyDate" required>
+          </label>
+          <label><span>Passengers</span>
+            <input type="number" min="1" [(ngModel)]="searchRequest.passengers" name="passengers" required>
+          </label>
+        </div>
+        <div class="form-action">
+          <button type="submit" class="btn-submit">Search Train</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="results-column">
+      <div class="results-container">
+        <div *ngIf="isLoading" class="loading">Searching for trains...</div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="bookingSuccessMessage" class="success-message">{{ bookingSuccessMessage }}</div>
+        <div *ngIf="!isLoading && searchResults.length === 0 && !errorMessage && !bookingSuccessMessage" class="placeholder">
+          Your search results will appear here.
+        </div>
+        <div *ngIf="!isLoading && searchResults.length > 0">
+          <h3>Available Trains</h3>
+          <div *ngFor="let train of searchResults" class="flight-card"> <div class="flight-details">
+              <h4>{{ train.trainName }} ({{ train.trainNumber }})</h4>
+              <p>{{ train.fromStation }} ➡️ {{ train.toStation }}</p>
+              <p>Departs: {{ train.departureTime | date:'shortTime' }} | Arrives: {{ train.arrivalTime | date:'shortTime' }}</p>
+            </div>
+            <div class="flight-booking">
+              <p class="price">{{ train.price | currency:'INR' }}</p>
+              <p class="seats">{{ train.availableSeats }} seats left</p>
+              <button (click)="openBookingModal(train)" class="btn-book">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-train-booking-modal 
+  *ngIf="isBookingModalVisible"
+  [train]="selectedTrainForBooking"
+  (bookingConfirmed)="handleBookingConfirmed($event)"
+  (closeModal)="closeBookingModal()">
+</app-train-booking-modal>

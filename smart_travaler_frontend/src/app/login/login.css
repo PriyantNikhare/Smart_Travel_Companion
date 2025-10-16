@@ -1,0 +1,144 @@
+/* --- Variables for easy theming --- */
+:root {
+  --primary-color: #007bff; /* Blue */
+  --primary-dark: #0056b3;
+  --text-color: #333;
+  --light-gray: #f8f9fa;
+  --white: #ffffff;
+  --error-color: #dc3545;
+}
+
+/* 1. Page Wrapper: Centers the card on the screen */
+.login-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--light-gray);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 2. Login Card: The main container for the form */
+.login-card {
+  width: 100%;
+  max-width: 400px; /* A good size for a login form */
+  background: var(--white);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* 3. Header Styling */
+header h1 {
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+header p {
+  color: #6c757d;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+/* 4. Form Fields */
+.form-field {
+  margin-bottom: 20px;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box; /* Important for padding/width calculation */
+}
+
+/* Focus and Error Styles */
+.form-field input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Apply border style when invalid and touched */
+.form-field input:valid:not(:focus),
+.form-field input:invalid.ng-touched {
+    border-color: var(--error-color);
+}
+
+
+/* 5. Error Message */
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  min-height: 18px; /* Maintain vertical space for smoothness */
+}
+
+
+/* 6. Login Button */
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  margin-top: 10px;
+}
+
+.login-button:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+}
+
+.login-button:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.login-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+
+/* 7. Footer Links */
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.footer-links a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}

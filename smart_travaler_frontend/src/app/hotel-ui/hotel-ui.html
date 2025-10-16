@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="content-wrapper">
+    <div class="form-column">
+      <h2 class="form-title">Book Your <span class="highlight">Hotel</span></h2>
+      <form class="form" (ngSubmit)="onSearchHotels()">
+        <div class="form-row-single">
+          <label><span>City / Location</span>
+            <input type="text" placeholder="e.g., Jaipur" [(ngModel)]="searchRequest.city" name="city" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>Check-in Date</span>
+            <input type="date" [(ngModel)]="searchRequest.checkInDate" name="checkInDate" required>
+          </label>
+          <label><span>Check-out Date</span>
+            <input type="date" [(ngModel)]="searchRequest.checkOutDate" name="checkOutDate" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>Guests</span>
+            <input type="number" min="1" [(ngModel)]="searchRequest.numberOfGuests" name="numberOfGuests" required>
+          </label>
+          <label><span>Rooms</span>
+            <input type="number" min="1" [(ngModel)]="searchRequest.numberOfRooms" name="numberOfRooms" required>
+          </label>
+        </div>
+        <div class="form-action">
+          <button type="submit" class="btn-submit">Search Hotels</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="results-column">
+      <div class="results-container">
+        <div *ngIf="isLoading" class="loading">Searching for hotels...</div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="bookingSuccessMessage" class="success-message">{{ bookingSuccessMessage }}</div>
+        <div *ngIf="!isLoading && searchResults.length === 0 && !errorMessage && !bookingSuccessMessage" class="placeholder">
+          Your search results will appear here.
+        </div>
+        <div *ngIf="!isLoading && searchResults.length > 0">
+          <h3>Available Hotels</h3>
+          <div *ngFor="let hotel of searchResults" class="flight-card">
+            <div class="flight-details">
+              <h4>{{ hotel.hotelName }}</h4>
+              <p>{{ hotel.rating }} Stars | {{ hotel.city }}</p>
+              <p class="amenities">{{ hotel.amenities }}</p>
+            </div>
+            <div class="flight-booking">
+              <p class="price">{{ hotel.pricePerNight | currency:'INR' }}</p>
+              <p class="seats">/ per night</p>
+              <button (click)="openBookingModal(hotel)" class="btn-book">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-hotel-booking-modal 
+  *ngIf="isBookingModalVisible"
+  [hotel]="selectedHotelForBooking"
+  [searchDetails]="searchRequest"
+  (bookingConfirmed)="handleBookingConfirmed($event)"
+  (closeModal)="closeBookingModal()">
+</app-hotel-booking-modal>

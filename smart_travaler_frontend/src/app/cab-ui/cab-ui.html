@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="content-wrapper">
+    <div class="form-column">
+      <h2 class="form-title">Book Your <span class="highlight">Cab</span></h2>
+      <form class="form" (ngSubmit)="onSearchCabs()">
+        <div class="form-row-single"> <label><span>Enter City</span>
+            <input type="text" placeholder="e.g., Pune" [(ngModel)]="searchRequest.city" name="city" required>
+          </label>
+        </div>
+        <div class="form-action">
+          <button type="submit" class="btn-submit">Search Cabs</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="results-column">
+      <div class="results-container">
+        <div *ngIf="isLoading" class="loading">Searching for cabs...</div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="bookingSuccessMessage" class="success-message">{{ bookingSuccessMessage }}</div>
+        <div *ngIf="!isLoading && searchResults.length === 0 && !errorMessage && !bookingSuccessMessage" class="placeholder">
+            Your search results will appear here.
+        </div>
+        <div *ngIf="!isLoading && searchResults.length > 0">
+          <h3>Available Cabs</h3>
+          <div *ngFor="let cab of searchResults" class="flight-card">
+            <div class="flight-details">
+              <h4>{{ cab.driverName }}</h4>
+              <p>{{ cab.cabType }}</p>
+            </div>
+            <div class="flight-booking">
+              <p class="price">{{ cab.ratePerKm | currency:'INR' }}/km</p>
+              <button (click)="openBookingModal(cab)" class="btn-book">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-cab-booking-modal 
+  *ngIf="isBookingModalVisible"
+  [cab]="selectedCabForBooking"
+  (bookingConfirmed)="handleBookingConfirmed($event)"
+  (closeModal)="closeBookingModal()">
+</app-cab-booking-modal>

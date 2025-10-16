@@ -1,0 +1,28 @@
+<div class="modal-overlay" (click)="onCancel()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <h3 class="modal-title">Confirm Your Stay</h3>
+    
+    <div *ngIf="hotel && searchDetails" class="flight-summary">
+      <p><strong>{{ hotel.hotelName }}</strong> ({{ hotel.rating }} Stars)</p>
+      <p>City: {{ hotel.city }}</p>
+      <p>Check-in: {{ searchDetails.checkInDate }}</p>
+      <p>Check-out: {{ searchDetails.checkOutDate }}</p>
+      <p>{{ searchDetails.numberOfGuests }} Guests, {{ searchDetails.numberOfRooms }} Room(s)</p>
+    </div>
+
+    <form #bookingForm="ngForm" (ngSubmit)="onConfirmBooking()">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input name="guestName" type="text" [(ngModel)]="passengerDetails.name" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input name="guestEmail" type="email" [(ngModel)]="passengerDetails.email" required>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn-confirm" [disabled]="!bookingForm.valid">Confirm Booking</button>
+      </div>
+    </form>
+  </div>
+</div>

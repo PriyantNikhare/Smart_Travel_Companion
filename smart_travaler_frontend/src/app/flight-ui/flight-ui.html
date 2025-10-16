@@ -1,0 +1,71 @@
+<div class="card">
+  <div class="content-wrapper">
+    
+    <div class="form-column">
+      <h2 class="form-title">Book Your <span class="highlight">Flight</span></h2>
+
+      <form class="form" (ngSubmit)="onSearchFlights()">
+        <div class="form-row">
+          <label><span>From Destination</span>
+            <input type="text" placeholder="e.g., London" [(ngModel)]="searchRequest.origin" name="origin" required>
+          </label>
+          <label><span>To Destination</span>
+            <input type="text" placeholder="e.g., Paris" [(ngModel)]="searchRequest.destination" name="destination" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>Departure Date</span>
+            <input type="date" [(ngModel)]="searchRequest.departureDate" name="departureDate" required>
+          </label>
+          <label><span>Travelers</span>
+            <input type="number" min="1" [(ngModel)]="searchRequest.seats" name="seats" required>
+          </label>
+        </div>
+        <div class="form-action">
+          <button type="submit" class="btn-submit">Search Flight</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="results-column">
+      <div class="results-container">
+        <div *ngIf="isLoading" class="loading">Searching for flights...</div>
+
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+        <div *ngIf="bookingSuccessMessage" class="success-message">{{ bookingSuccessMessage }}</div>
+
+        <div *ngIf="!isLoading && searchResults.length === 0 && !errorMessage && !bookingSuccessMessage" class="placeholder">
+            Your search results will appear here.
+        </div>
+        
+        <div *ngIf="!isLoading && searchResults.length > 0">
+          <h3>Available Flights</h3>
+          <div *ngFor="let flight of searchResults" class="flight-card">
+            <div class="flight-details">
+              <h4>{{ flight.airline }} ({{ flight.flightNumber }})</h4>
+              <p>{{ flight.origin }} ➡️ {{ flight.destination }}</p>
+              <p>Departs: {{ flight.departureTime | date:'shortTime' }} | Arrives: {{ flight.arrivalTime | date:'shortTime' }}</p>
+            </div>
+            <div class="flight-booking">
+              <p class="price">{{ flight.price | currency:'INR' }}</p>
+              <p class="seats">{{ flight.availableSeats }} seats left</p>
+              <button (click)="openBookingModal(flight)" class="btn-book">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!isLoading && searchResults.length === 0 && (errorMessage || bookingSuccessMessage)">
+          <p>No flights found for the selected route. Please try different criteria.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-booking-modal 
+  *ngIf="isBookingModalVisible"
+  [flight]="selectedFlightForBooking"
+  (bookingConfirmed)="handleBookingConfirmed($event)"
+  (closeModal)="closeBookingModal()">
+</app-booking-modal>

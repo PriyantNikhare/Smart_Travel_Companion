@@ -1,0 +1,89 @@
+/* Page-wide layout for centering */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of viewport */
+  background-color: #ffffff;
+}
+
+/* Container styling */
+.registration-container {
+  width: 350px;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Title */
+h2 {
+  color: #9b59b6;
+  font-family: Arial, sans-serif;
+  margin-bottom: 20px;
+}
+
+/* Form fields */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input:focus {
+  border-color: #9b59b6;
+  outline: none;
+}
+
+button.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error messages */
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Login redirect link */
+.login-redirect {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-redirect a {
+  color: #9b59b6;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-redirect a:hover {
+  text-decoration: underline;
+}
