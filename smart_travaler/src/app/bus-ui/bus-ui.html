@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="content-wrapper">
+    <div class="form-column">
+      <h2 class="form-title">Book Your <span class="highlight">Bus</span></h2>
+      <form class="form" (ngSubmit)="onSearchBuses()">
+        <div class="form-row">
+          <label><span>From City</span>
+            <input type="text" placeholder="e.g., Pune" [(ngModel)]="searchRequest.fromCity" name="fromCity" required>
+          </label>
+          <label><span>To City</span>
+            <input type="text" placeholder="e.g., Goa" [(ngModel)]="searchRequest.toCity" name="toCity" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>Travel Date</span>
+            <input type="date" [(ngModel)]="searchRequest.travelDate" name="travelDate" required>
+          </label>
+          <label><span>Seats</span>
+            <input type="number" min="1" [(ngModel)]="searchRequest.seats" name="seats" required>
+          </label>
+        </div>
+        <div class="form-action">
+          <button type="submit" class="btn-submit">Search Bus</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="results-column">
+      <div class="results-container">
+        <div *ngIf="isLoading" class="loading">Searching for buses...</div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="!isLoading && searchResults.length === 0 && !errorMessage && !bookingSuccessMessage" class="placeholder">
+            Your search results will appear here.
+        </div>
+        <div *ngIf="bookingSuccessMessage" class="success-message">{{ bookingSuccessMessage }}</div>
+        <div *ngIf="!isLoading && searchResults.length > 0">
+          <h3>Available Buses</h3>
+          <div *ngFor="let bus of searchResults" class="flight-card">
+            <div class="flight-details">
+              <h4>{{ bus.operatorName }} ({{ bus.busType }})</h4>
+              <p>{{ bus.fromCity }} ➡️ {{ bus.toCity }}</p>
+              <p>Departs: {{ bus.departureTime | date:'shortTime' }}</p>
+            </div>
+            <div class="flight-booking">
+              <p class="price">{{ bus.price | currency:'INR' }}</p>
+              <p class="seats">{{ bus.availableSeats }} seats left</p>
+              <button (click)="openBookingModal(bus)" class="btn-book">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-bus-booking-modal 
+  *ngIf="isBookingModalVisible"
+  [bus]="selectedBusForBooking"
+  (bookingConfirmed)="handleBookingConfirmed($event)"
+  (closeModal)="closeBookingModal()">
+</app-bus-booking-modal>
