@@ -96,11 +96,11 @@ All combined to create a **seamless and enriched travel adventure**.
    cd smart-travel-companion
 2. **Backend Setup**
    ```bash
-   cd backend
+   cd Smart-Travel-Companion-Backend
    ./mvnw spring-boot:run
 3. **Frontend Setup**
    ```bash
-   cd frontend
+   cd smart_travaler_frontend
    npm install
    ng serve
    Access the app at: http://localhost:4200
