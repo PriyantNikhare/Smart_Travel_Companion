@@ -1,0 +1,184 @@
+/* --- Main Component Layout --- */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Glassmorphism Card --- */
+.card {
+  width: 100%;
+  max-width: 70rem; /* Increased width for two columns */
+  background-color: rgba(28, 17, 41, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 2.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* --- NEW Two-Column Wrapper --- */
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; /* Form is smaller than results */
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+/* --- Form Styles --- */
+.form-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  color: white;
+}
+.form-title .highlight {
+  color: #c084fc;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.form label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.form label span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d8b4fe;
+  margin-bottom: 0.5rem;
+}
+.form input {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+}
+.form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.form input:focus {
+  outline: none;
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.4);
+}
+.form-action {
+  padding-top: 1rem;
+}
+.btn-submit {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3b0764;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.btn-submit:hover {
+  background-color: #f3e8ff;
+  transform: translateY(-2px);
+}
+
+/* --- Flight Results Column & Messages --- */
+.results-column {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  padding-left: 2.5rem;
+  min-height: 350px; /* Give the column some height */
+}
+
+/* Placeholder text when no search is performed */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.1rem;
+}
+
+.loading, .error-message, .success-message {
+  padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.5rem; text-align: center; font-weight: 500;
+}
+.error-message {
+  background-color: rgba(255, 77, 77, 0.2); border: 1px solid rgba(255, 77, 77, 0.5); color: #ffdddd;
+}
+.success-message {
+  background-color: rgba(77, 255, 136, 0.2); border: 1px solid rgba(77, 255, 136, 0.5); color: #ddffdd;
+}
+.results-column h3 {
+  font-size: 1.25rem; margin-bottom: 1rem; margin-top: 0; color: #d8b4fe;
+}
+.flight-card {
+  display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; margin-bottom: 1rem; background-color: rgba(0, 0, 0, 0.15); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 0.75rem; transition: transform 0.2s, background-color 0.2s;
+}
+.flight-card:hover {
+  transform: translateY(-3px); background-color: rgba(0, 0, 0, 0.25);
+}
+.flight-details h4 {
+  font-size: 1.1rem; font-weight: 600; margin: 0 0 0.25rem 0; color: white;
+}
+.flight-details p {
+  margin: 0; font-size: 0.9rem; color: #d8b4fe; opacity: 0.9;
+}
+.flight-booking {
+  text-align: right;
+}
+.flight-booking .price {
+  font-size: 1.5rem; font-weight: 700; margin: 0 0 0.25rem 0; color: white;
+}
+.flight-booking .seats {
+  font-size: 0.8rem; color: #d8b4fe; margin-bottom: 0.75rem;
+}
+.btn-book {
+  padding: 0.5rem 1rem; font-size: 0.9rem; font-weight: 600; color: white; background-color: #9333ea; border: none; border-radius: 0.5rem; cursor: pointer; transition: background-color 0.2s, transform 0.2s;
+}
+.btn-book:hover {
+  background-color: #a855f7; transform: scale(1.05);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    grid-template-columns: 1fr; /* Stack columns vertically */
+  }
+  .results-column {
+    border-left: none; /* Remove side border */
+    padding-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Add top border */
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    padding: 1rem;
+  }
+  .card {
+    padding: 1.5rem;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
